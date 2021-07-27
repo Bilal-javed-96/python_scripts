@@ -4,7 +4,11 @@ from typing import TextIO
 import datetime 
 from tabulate import tabulate
 from tabulate import TableFormat
-
+'''
+Pre-requisites : SMTP should be installed
+                 mail command 
+                 GIT
+'''
 #https://gitlab.com/ndctech2/clos_ubl/userpanel_ubl
 os.system('rm -rf userpanel_ubl')
 repo_url = input("Enter the Link to Repository : ") or "https://gitlab.com/ndctech2/clos_ubl/userpanel_ubl"
@@ -36,7 +40,7 @@ for line in read_line:
     main_line = line.split(',')
     #print(main_line)
     temp = main_line[1].split(' ')
-    print(temp)
+    #print(temp)
     if temp[2] == 'minutes' or temp[2] == 'hours':
         t0_name.append(main_line[0])
     elif temp[2] == 'days' and temp[1] == '1':
@@ -57,7 +61,7 @@ t4_name = list(set(t4_name))
 fh.close()
 
 #-----------------------------------------------------
-
+# making a table for data sorted in above section
 s=datetime.datetime.now()
 t0_date=s.strftime("%d"+"-"+"%m"+"-"+"%Y")
 t1_date = (datetime.datetime.today() - datetime.timedelta(days=1)).strftime("%d"+"-"+"%m"+"-"+"%Y")
@@ -66,14 +70,19 @@ t3_date = (datetime.datetime.today() - datetime.timedelta(days=3)).strftime("%d"
 t4_date = (datetime.datetime.today() - datetime.timedelta(days=4)).strftime("%d"+"-"+"%m"+"-"+"%Y")
 
 table = {t0_date : t0_name,t1_date : t1_name,t2_date : t2_name,t3_date : t3_name , t4_date :t4_name }
-folder_1 = "abc"
-#table = [test , test1 , test11]
 head_1 = "Commits on "+ folder_1 +" repo"
 headers = [head_1]
 table1 = tabulate(table,headers='keys',tablefmt="github")
 print(table1)
-fh = open ('mail.txt','w+')
-fh.write("Subject: This email contains repo details for\n")
+fh = open ('Repo_Report.txt','w+')
+fh.write("Subject: This email contains repo details for " +folder_1+"\n\n")
 fh.write(table1)
 fh.close()
-os.system('echo "sending mail" | mail -s "test" jm.bilal1996@gmail.com -A mail.txt')
+os.system('echo "PFA the GIT Repository Commit Report " | mail -s "Git Repo Commit Report" abc@gmail.com -A Repo_Report.txt')
+
+
+#------------------------------------------------------
+
+os.chdir(dir)
+dir = "rm -rf "+folder_1
+os.system(dir)
