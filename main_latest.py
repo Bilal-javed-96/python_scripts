@@ -13,7 +13,7 @@ Pre-requisites : SMTP should be installed
 '''
 #https://gitlab.com/ndctech2/clos_ubl/userpanel_ubl
 #os.system('rm -rf userpanel_ubl')
-repo_url = input("Enter the Link to Repository : ") or "https://gitlab.com/ndctech2/clos_ubl/userpanel_ubl"
+repo_url = input("Enter the Link to Repository : ") or "https://gitlab.com/xxx"
 clone_link = "git clone " + repo_url
 #os.system(clone_link)                          #executing git clone command
 
@@ -191,8 +191,7 @@ for i in out_em_br:
     temp_c = "<p>" +i +"</p>"
     fi.write(temp_c)
 fi.close()
-os.system('mutt -e "set content_type=text/html" -s "PFA the GIT Repository Commit Report" Bilal.javed@ndctech.net < branch.html')
-#os.system('mutt -e "set content_type=text/html" -s "PFA the GIT Repository Commit Report" Rizwan.nasir@ndctech.net < branch.html')
+os.system('mutt -e "set content_type=text/html" -s "PFA the GIT Repository Commit Report" x@gmail.com < branch.html')
 #------------------------------------------------------
 
 os.chdir(dir)
